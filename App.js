@@ -1,7 +1,29 @@
 import { StyleSheet, Text, View, Image} from 'react-native';
 import React from 'react'
 const App = () => {
-  return(
+  const ButtonCustom = ({color, text}) => {
+
+    return(
+      <View style={{
+        flex:1,
+        backgroundColor: color,
+         width: 130, 
+         height: 60,
+        justifyContent: 'center',
+        borderRadius: 10,
+        marginRight: 10,
+      }}>  
+        <Text style={{
+          fontSize: 20 , color: 'white',
+          textAlign: 'center',
+          fontWeight: 'bold'
+        }}>
+          {text}
+        </Text>
+        </View>
+    )
+  }
+  return(  
     <View style={{ flex: 1 }}>
       <View style={{
         flex: 1,
@@ -14,7 +36,7 @@ const App = () => {
         style={{
           width: 160,
           height: 160,
-          marginBottom: 50
+          marginBottom: 50 
         }}
         />
       </View>
@@ -27,39 +49,11 @@ const App = () => {
       marginBottom: 100,
 
     }}>
-      <View style={{
-        flex:1,
-        backgroundColor: 'crimson', width: 130, height: 60,
-        justifyContent: 'center',
-        borderRadius: 10,
-        marginRight:10,
-        marginLeft: 10,
-      }}>
-        <Text style={{
-          fontSize: 20 , color: 'white',
-          textAlign: 'center',
-          fontWeight: 'bold'
-        }}>
-          Login
-        </Text>
-        </View>
-        <View style={{
-        flex:1,
-        backgroundColor: 'crimson', width: 130, height: 60,
-        justifyContent: 'center',
-        borderRadius: 10,
-        marginRight: 10,
-      }}>  
-        <Text style={{
-          fontSize: 20 , color: 'white',
-          textAlign: 'center',
-          fontWeight: 'bold'
-        }}>
-          Register
-        </Text>
-        </View>
+      <ButtonCustom color = 'crimson' text = 'Login'/>
+      <ButtonCustom color = 'green' text = 'Register'/>
       </View>
       </View>
   )
-}
+  }
+  
 export default App
