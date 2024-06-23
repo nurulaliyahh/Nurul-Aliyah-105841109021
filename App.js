@@ -1,29 +1,51 @@
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image } from 'react-native';
 import React, { useState } from 'react';
 
-const TextInputCustom = ({ name, color, value, onChangeText }) => (
-  <TextInput
-    placeholder={name}
-    style={[styles.customTextInput, { color: color }]}
-    value={value}
-    onChangeText={onChangeText}
-  />
+const TextInputCustom = ({ name, color, value, onChangeText, errorMessage }) => (
+  <>
+    <TextInput
+      placeholder={name}
+      style={[styles.customTextInput, { color: color, borderColor: errorMessage ? 'red' : 'gray' }]}
+      value={value}
+      onChangeText={onChangeText}
+    />
+    {errorMessage ? <Text style={styles.errorText}>{errorMessage}</Text> : null}
+  </>
 );
 
 const App = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isForgotPasswordVisible, setIsForgotPasswordVisible] = useState(false);
+  const [emailError, setEmailError] = useState('');
 
   const handleForgotPassword = () => {
     setIsForgotPasswordVisible(true);
   };
 
   const handleSendEmail = () => {
+    if (!validateEmail(email)) {
+      setEmailError('Not a valid email address. Should be your@email.com');
+    } else {
+      setEmailError('');
+      // Logic to send email
+    }
+  };
+
+  const validateEmail = (email) => {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
   };
 
   const handleBackPress = () => {
-    // Logic to handle back button press
+    setIsForgotPasswordVisible(false);
+    setEmailError('');
+    setEmail('');
+  };
+
+  const handleNavigateToSignUp = () => {
+    // Logic to navigate to the sign-up page
+    console.log("Navigate to Sign Up");
   };
 
   return (
@@ -34,14 +56,23 @@ const App = () => {
             <Text style={styles.backButtonText}>&larr;</Text>
           </TouchableOpacity>
           <Text style={styles.title}>Forgot Password</Text>
-          <TextInputCustom name="Email" color="black" value={email} onChangeText={setEmail} />
+          <Text style={styles.description}>
+            Please, enter your email address. You will receive a link to create a new password via email.
+          </Text>
+          <TextInputCustom
+            name="Email"
+            color="black"
+            value={email}
+            onChangeText={setEmail}
+            errorMessage={emailError}
+          />
           <TouchableOpacity style={styles.button} onPress={handleSendEmail}>
             <Text style={styles.buttonText}>SEND</Text>
           </TouchableOpacity>
         </>
       ) : (
         <>
-          <TouchableOpacity style={styles.backButton} onPress={handleBackPress}>
+          <TouchableOpacity style={styles.backButton} onPress={handleNavigateToSignUp}>
             <Text style={styles.backButtonText}>&larr;</Text>
           </TouchableOpacity>
           <Text style={styles.title}>LOGIN</Text>
@@ -87,6 +118,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 40,
     left: 20,
+    zIndex: 1,
   },
   backButtonText: {
     fontSize: 30,
@@ -96,16 +128,27 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: 'bold',
     alignSelf: 'flex-start',
-    marginBottom: 70,
+    marginBottom: 20,
+  },
+  description: {
+    fontSize: 16,
+    color: '#7d7d7d',
+    marginBottom: 20,
+    textAlign: 'center',
   },
   customTextInput: {
     height: 40,
     width: 250,
-    borderColor: 'gray',
     borderWidth: 1,
     borderRadius: 10,
     marginBottom: 10,
     paddingLeft: 10,
+  },
+  errorText: {
+    fontSize: 12,
+    color: 'red',
+    alignSelf: 'flex-start',
+    marginBottom: 10,
   },
   forgotContainer: {
     alignSelf: 'flex-end',
