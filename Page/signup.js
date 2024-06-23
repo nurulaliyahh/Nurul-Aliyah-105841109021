@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image } from 'react-native';
+import React, { useState } from 'react';
+
 
 const CustomButton = ({ color, text }) => (
   <View style={[styles.customButton, { backgroundColor: color }]}>
@@ -28,7 +29,7 @@ const App = () => {
       <Text style={styles.title}>SIGN UP</Text>
       <TextInputCustom name="Name" color="black" value={username} onChangeText={setUsername} />
       <TextInputCustom name="Email" color="black" value={email} onChangeText={setEmail} />
-      <TextInputCustom name="Password" color="black" value={password} onChangeText={setPassword} />
+      <TextInputCustom name="Password" color="red" value={password} onChangeText={setPassword} />
       <View style={styles.accountContainer}>
         <Text style={styles.accountText}>Already have an account? <Text style={styles.arrow}>&rarr;</Text></Text>
       </View>
