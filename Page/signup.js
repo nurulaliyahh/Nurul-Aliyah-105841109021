@@ -1,3 +1,4 @@
+import { useFonts } from 'expo-font';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image } from 'react-native';
 import React, { useState } from 'react';
 
@@ -24,9 +25,17 @@ const App = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const [fontsLoaded] = useFonts({
+    'MetroBold' : require('./assets/fonts/Metropolis-Bold.otf'),
+    'MetroMedium' : require('./assets/fonts/Metropolis-Medium.otf'),
+  })
+    
+  if (!fontsLoaded) {
+    return null;
+  }
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>SIGN UP</Text>
+      <Text style={[styles.title, { fontFamily: 'MetroBold'}]}>SIGN UP</Text>
       <TextInputCustom name="Name" color="black" value={username} onChangeText={setUsername} />
       <TextInputCustom name="Email" color="black" value={email} onChangeText={setEmail} />
       <TextInputCustom name="Password" color="red" value={password} onChangeText={setPassword} />
@@ -34,9 +43,9 @@ const App = () => {
         <Text style={styles.accountText}>Already have an account? <Text style={styles.arrow}>&rarr;</Text></Text>
       </View>
       <TouchableOpacity style={styles.button}>
-        <Text style={styles.buttonText}>SIGN UP</Text>
+        <Text style={[styles.buttonText, { fontFamily: 'MetroBold'}]}>SIGN UP</Text>
       </TouchableOpacity>
-      <Text style={styles.signupText}>Or sign up with social account</Text>
+      <Text style={[styles.signupText, { fontFamily: 'MetroMedium'}]}>Or sign up with social account</Text>
       <View style={styles.socialButtons}>
         <TouchableOpacity style={styles.socialButton}>
           <Image
@@ -65,7 +74,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 30,
-    fontWeight: 'bold',
+    fontFamily: 'MetroBold',
     alignSelf: 'flex-start',
     marginBottom: 70,
   },
@@ -91,7 +100,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: 'white',
     textAlign: 'center',
-    fontWeight: 'bold',
+    fontFamily: 'MetroBold',
   },
   accountContainer: {
     alignSelf: 'flex-end',
@@ -100,6 +109,7 @@ const styles = StyleSheet.create({
   },
   accountText: {
     fontSize: 14,
+    fontFamily: 'MetroMedium',
     color: '#7d7d7d',
   },
   arrow: {
@@ -108,6 +118,7 @@ const styles = StyleSheet.create({
   },
   signupText: {
     fontSize: 15,
+    fontFamily: 'MetroMedium',
     color: '#7d7d7d',
     marginTop: 100,
     marginVertical: 15,

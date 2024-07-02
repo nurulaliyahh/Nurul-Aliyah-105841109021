@@ -1,3 +1,4 @@
+import { useFonts } from 'expo-font';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image } from 'react-native';
 import React, { useState } from 'react';
 
@@ -26,6 +27,15 @@ const App = () => {
     // Logic to handle back button press
   };
 
+  const [fontsLoaded] = useFonts({
+    'MetroBold' : require('./assets/fonts/Metropolis-Bold.otf'),
+    'MetroMedium' : require('./assets/fonts/Metropolis-Medium.otf'),
+  })
+    
+  if (!fontsLoaded) {
+    return null;
+  }
+
   return (
     <View style={styles.container}>
       {isForgotPasswordVisible ? (
@@ -33,10 +43,10 @@ const App = () => {
           <TouchableOpacity style={styles.backButton} onPress={handleBackPress}>
             <Text style={styles.backButtonText}>&larr;</Text>
           </TouchableOpacity>
-          <Text style={styles.title}>Forgot Password</Text>
+          <Text style={[styles.title, { fontFamily: 'MetroBold'}]}>Forgot Password</Text>
           <TextInputCustom name="Email" color="black" value={email} onChangeText={setEmail} />
           <TouchableOpacity style={styles.button} onPress={handleSendEmail}>
-            <Text style={styles.buttonText}>SEND</Text>
+            <Text style={[styles.buttonText, { fontFamily: 'MetroBold'}]}>SEND</Text>
           </TouchableOpacity>
         </>
       ) : (
@@ -94,9 +104,9 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 30,
-    fontWeight: 'bold',
     alignSelf: 'flex-start',
     marginBottom: 70,
+    fontFamily: 'MetroBold',
   },
   customTextInput: {
     height: 40,
@@ -117,6 +127,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#7d7d7d',
     lineHeight: 15,
+    fontFamily: 'MetroMedium',
   },
   arrow: {
     fontSize: 20,
@@ -136,13 +147,15 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: 'white',
     textAlign: 'center',
-    fontWeight: 'bold',
+    fontFamily: 'MetroBold',
   },
   loginText: {
     fontSize: 15,
     color: '#7d7d7d',
     marginTop: 100,
     marginVertical: 15,
+    fontFamily: 'MetroMedium',
+    
   },
   socialButtons: {
     flexDirection: 'row',

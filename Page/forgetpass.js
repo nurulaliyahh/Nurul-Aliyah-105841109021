@@ -1,3 +1,4 @@
+import { useFonts } from 'expo-font';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image } from 'react-native';
 import React, { useState } from 'react';
 
@@ -48,6 +49,15 @@ const App = () => {
     console.log("Navigate to Sign Up");
   };
 
+  const [fontsLoaded] = useFonts({
+    'MetroBold' : require('./assets/fonts/Metropolis-Bold.otf'),
+    'MetroMedium' : require('./assets/fonts/Metropolis-Medium.otf'),
+  })
+    
+  if (!fontsLoaded) {
+    return null;
+  }
+
   return (
     <View style={styles.container}>
       {isForgotPasswordVisible ? (
@@ -55,8 +65,8 @@ const App = () => {
           <TouchableOpacity style={styles.backButton} onPress={handleBackPress}>
             <Text style={styles.backButtonText}>&larr;</Text>
           </TouchableOpacity>
-          <Text style={styles.title}>Forgot Password</Text>
-          <Text style={styles.description}>
+          <Text style={[styles.title, { fontFamily: 'MetroBold'}]}>Forgot Password</Text>
+          <Text style={[styles.description, { fontFamily: 'MetroMedium'}]}>
             Please, enter your email address. You will receive a link to create a new password via email.
           </Text>
           <TextInputCustom
@@ -67,7 +77,7 @@ const App = () => {
             errorMessage={emailError}
           />
           <TouchableOpacity style={styles.button} onPress={handleSendEmail}>
-            <Text style={styles.buttonText}>SEND</Text>
+            <Text style={[styles.buttonText, { fontFamily: 'MetroBold'}]}>SEND</Text>
           </TouchableOpacity>
         </>
       ) : (
@@ -79,7 +89,7 @@ const App = () => {
           <TextInputCustom name="Email" color="black" value={email} onChangeText={setEmail} />
           <TextInputCustom name="Password" color="red" value={password} onChangeText={setPassword} />
           <TouchableOpacity style={styles.forgotContainer} onPress={handleForgotPassword}>
-            <Text style={styles.forgotText}>Forgot your password?</Text>
+            <Text style={[styles.forgotText, { fontFamily: 'MetroMedium'}]}>Forgot your password?</Text>
             <Text style={styles.arrow}>&rarr;</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button}>
@@ -118,7 +128,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 40,
     left: 20,
-    zIndex: 1,
+    Index: 1,
   },
   backButtonText: {
     fontSize: 30,
@@ -126,7 +136,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 30,
-    fontWeight: 'bold',
+    fontFamily: 'MetroBold',
     alignSelf: 'flex-start',
     marginBottom: 20,
   },
@@ -135,6 +145,7 @@ const styles = StyleSheet.create({
     color: '#7d7d7d',
     marginBottom: 20,
     textAlign: 'center',
+    fontFamily: 'MetroMedium',
   },
   customTextInput: {
     height: 40,
@@ -149,6 +160,7 @@ const styles = StyleSheet.create({
     color: 'red',
     alignSelf: 'flex-start',
     marginBottom: 10,
+    fontFamily: 'MetroMedium',
   },
   forgotContainer: {
     alignSelf: 'flex-end',
@@ -160,6 +172,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#7d7d7d',
     lineHeight: 15,
+    fontFamily: 'Metroedium',
   },
   arrow: {
     fontSize: 20,
@@ -179,13 +192,14 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: 'white',
     textAlign: 'center',
-    fontWeight: 'bold',
+    fontFamily: 'MetroBold',
   },
   loginText: {
     fontSize: 15,
     color: '#7d7d7d',
     marginTop: 100,
     marginVertical: 15,
+    fontFamily: 'MetroMedium',
   },
   socialButtons: {
     flexDirection: 'row',
