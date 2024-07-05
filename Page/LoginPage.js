@@ -28,8 +28,8 @@ const App = () => {
   };
 
   const [fontsLoaded] = useFonts({
-    'MetroBold' : require('./assets/fonts/Metropolis-Bold.otf'),
-    'MetroMedium' : require('./assets/fonts/Metropolis-Medium.otf'),
+    'MetroBold' : require('../assets/fonts/Metropolis-Bold.otf'),
+    'MetroMedium' : require('../assets/fonts/Metropolis-Medium.otf'),
   })
     
   if (!fontsLoaded) {
@@ -68,13 +68,13 @@ const App = () => {
           <View style={styles.socialButtons}>
             <TouchableOpacity style={styles.socialButton}>
               <Image
-                source={require('./assets/google.png')}
+                source={require('../assets/google.png')}
                 style={styles.socialButtonImage}
               />
             </TouchableOpacity>
             <TouchableOpacity style={styles.socialButton}>
               <Image
-                source={require('./assets/facebook.png')}
+                source={require('../assets/facebook.png')}
                 style={styles.socialButtonImage}
               />
             </TouchableOpacity>

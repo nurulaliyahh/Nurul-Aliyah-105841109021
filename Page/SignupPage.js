@@ -1,6 +1,7 @@
 import { useFonts } from 'expo-font';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image } from 'react-native';
 import React, { useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
 
 
 const CustomButton = ({ color, text }) => (
@@ -21,17 +22,22 @@ const TextInputCustom = ({ name, color, value, onChangeText }) => (
 );
 
 const App = () => {
+  const navigation = useNavigation('');
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const [fontsLoaded] = useFonts({
-    'MetroBold' : require('./assets/fonts/Metropolis-Bold.otf'),
-    'MetroMedium' : require('./assets/fonts/Metropolis-Medium.otf'),
+    'MetroBold' : require('../assets/fonts/Metropolis-Bold.otf'),
+    'MetroMedium' : require('../assets/fonts/Metropolis-Medium.otf'),
   })
     
   if (!fontsLoaded) {
     return null;
+  }
+
+  const handlePress = () => {
+    navigation.navigate('LoginPage');
   }
   return (
     <View style={styles.container}>
@@ -40,7 +46,11 @@ const App = () => {
       <TextInputCustom name="Email" color="black" value={email} onChangeText={setEmail} />
       <TextInputCustom name="Password" color="red" value={password} onChangeText={setPassword} />
       <View style={styles.accountContainer}>
-        <Text style={styles.accountText}>Already have an account? <Text style={styles.arrow}>&rarr;</Text></Text>
+        <TouchableOpacity onPress={handlePress}>
+          <Text style={styles.accountText}>
+            Already have an account? <Text style={styles.arrow}>&rarr;</Text>
+          </Text>
+        </TouchableOpacity>
       </View>
       <TouchableOpacity style={styles.button}>
         <Text style={[styles.buttonText, { fontFamily: 'MetroBold'}]}>SIGN UP</Text>
@@ -49,13 +59,13 @@ const App = () => {
       <View style={styles.socialButtons}>
         <TouchableOpacity style={styles.socialButton}>
           <Image
-            source={require('./assets/google.png')}
+            source={require('../assets/google.png')}
             style={styles.socialButtonImage}
           />
         </TouchableOpacity>
         <TouchableOpacity style={styles.socialButton}>
           <Image
-            source={require('./assets/facebook.png')}
+            source={require('../assets/facebook.png')}
             style={styles.socialButtonImage}
           />
         </TouchableOpacity>
