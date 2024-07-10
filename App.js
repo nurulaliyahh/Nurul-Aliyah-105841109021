@@ -1,17 +1,69 @@
-// In App.js in a new project
-
 import * as React from 'react';
-import { View, Text, Button } from 'react-native';
+import { View, Text, Button, Image, TouchableOpacity, TouchableOpacityBase } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import LoginPage from './Page/LoginPage'
-import SignupPage from './Page/SignupPage'
+import SignupPage from './Page/SignupPage';
+import LoginPage from './Page/LoginPage';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import HomeAktif from './assets/home-aktif.png';
+import HomeInaktif from './assets/home-inaktif.png';
+import Shop from './assets/shop-aktif.png';
+import ShopInaktif from './assets/shop-inaktif.png';
+import ShapeAktif from './assets/shapeaktif.png';
+import ShapeInaktif from './assets/Shape-inaktif.png'
+
+const Tab = createBottomTabNavigator();
+function MyTabs() {
+  return (
+    <Tab.Navigator>
+      <Tab.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{
+          headerShown: false, tabBarIcon: ({ focused }) => (
+            <Image
+              source={focused ? HomeAktif : HomeInaktif}
+              style={{ width: 40, height: 40 }}
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Signup"
+        component={SignupPage}
+        options={{
+          headerShown: false, tabBarIcon: ({ focused }) => (
+            <Image
+              source={focused ? Shop : ShopInaktif}
+              style={{ width: 40, height: 40 }}
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Login"
+        component={LoginPage}
+        options={{
+          headerShown: false, tabBarIcon: ({ focused }) => (
+            <Image
+              source={focused ? ShapeAktif : ShapeInaktif}
+              style={{ width: 40, height: 40 }}
+            />
+          ),
+        }}
+      />
+    </Tab.Navigator>
+  );
+}
 
 function HomeScreen({ navigation }) {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Text>Home Screen</Text>
-      <Button title='Ke Halaman Login' onPress={() => navigation.navigate('LoginPage')}/>
+      <Button
+        title="Go to Login"
+        onPress={() => navigation.navigate('Login')}
+      />
     </View>
   );
 }
@@ -22,9 +74,8 @@ function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="SignupPage" component={SignupPage}/>
-        <Stack.Screen name="LoginPage" component={LoginPage}/>
-        
+        <Stack.Screen name="Home" component={MyTabs} />
+        <Stack.Screen name="Signup" component={SignupPage} />
       </Stack.Navigator>
     </NavigationContainer>
   );
